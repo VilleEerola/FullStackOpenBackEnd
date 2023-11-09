@@ -1,6 +1,10 @@
 const express = require('express')
+const morgan = require('morgan')
+
+
 const application = express()
 application.use(express.json())
+application.use(morgan('tiny'))
 
 // the list of persons in the phonebook
 let persons = [
@@ -75,6 +79,15 @@ application.get('/api/persons/:id', (req, res) => {
         error: 'name or number is missing' 
       })
     }
+
+    const existingPerson = persons.find((person) => person.name === body.name)
+
+    if (existingPerson) {
+      return res.status(400).json({ 
+        error: 'name is already in the phonebook' 
+      })
+    }
+
   
     const addPerson = {
       name: body.name,
