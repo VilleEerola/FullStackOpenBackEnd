@@ -40,7 +40,7 @@ application.get('/api/persons', (req, res) =>{
 // Prints the info of how many persons in the phonebook and 
 //current time when request was sent
 // sends that info to browser
-application.get('/api/info', (req, res) =>{
+application.get('/', (req, res) =>{
     const timeNow = new Date()
     const howManyPeople = `Phonebook has info for ${persons.length} people`
     const response = 
