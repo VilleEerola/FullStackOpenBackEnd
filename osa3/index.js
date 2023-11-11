@@ -5,6 +5,7 @@ const cors = require('cors')
 
 const application = express()
 application.use(express.json())
+application.use(express.static('dist'))
 application.use(morgan('tiny'))
 application.use(cors())
 
