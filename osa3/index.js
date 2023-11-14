@@ -1,6 +1,9 @@
+require('dotenv').config()
+const Person = require('./models/person')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+
 
 
 const application = express()
@@ -10,7 +13,7 @@ application.use(morgan('tiny'))
 application.use(cors())
 
 // the list of persons in the phonebook
-let persons = [
+/***let persons = [
   {
     id: 1,
     name: "Arto Hellas",
@@ -31,11 +34,14 @@ let persons = [
     name: "Mary Poppendick",
     number: "39-23-6423122"
   }
-]
+]***/
+
 
 // sends "persons" to browser
-application.get('/api/persons', (req, res) =>{
-    res.json(persons)
+application.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
+    response.json(persons)
+  })
 })
 
 // Prints the info of how many persons in the phonebook and 
@@ -106,7 +112,7 @@ application.get('/api/persons/:id', (req, res) => {
 
 
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 application.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
